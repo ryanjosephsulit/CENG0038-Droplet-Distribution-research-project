@@ -1,8 +1,14 @@
-module TubeBend
+# Model: Y. S. Cheng, C. S. Wang (Motion of Particles in Bends of Circular Pipes, 1980)
+# Based on: bendTubePenetrationCheng1980.m
 
-using Constants
+dir = "./src"
+push!(LOAD_PATH,dir)
 
- struct Properties
+module tubeBend
+
+import physicalConstants: k, g
+
+struct Properties
 #CarrierFluidProfile
      T     :: Float64        # Carrier fluid temperature (T) SI units: K
      Q     :: Float64        # Carrier fluid flow rate (Q) SI units: m3 s-1
@@ -18,6 +24,11 @@ using Constants
 function  ()
     
 end
+end
+
+#Debug test
+# println(k)
+
 end
 
 #struct TemperatureProfile

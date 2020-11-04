@@ -3,6 +3,9 @@ uuid = "f1629704-5882-441b-acdc-8fc8ec4ebb16"
 authors = ["Ryan Sulit <zcecrjs@ucl.ac.uk> and contributors"]
 version = "0.1.0"
 
+[deps]
+Revise = "295af30f-e4ad-537b-8983-00126c2a3abe"
+
 [compat]
 julia = "1"
 

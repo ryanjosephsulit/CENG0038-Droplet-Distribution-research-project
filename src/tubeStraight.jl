@@ -1,6 +1,12 @@
-module TubeStraight
+# Model: Anand, McFarland, Kihm, Wong (Optimization of Aerosol Penetration through Transport Lines, 1992)
+# Based on: straightTubePenetrationAnand1992.m
 
-include("physicalConstants.jl")
+dir = "./src"
+push!(LOAD_PATH,dir)
+
+module tubeStraight
+
+import physicalConstants: k, g
 
 # struct CarrierFluidProfile
 #     T :: Float64        # Carrier fluid temperature (T) SI units: K
@@ -8,6 +14,8 @@ include("physicalConstants.jl")
 #     Q :: Float64        # Carrier fluid flow rate (Q) SI units: m3 s-1
 #     mu :: Float64       # Carrier fluid dynamic viscosity (mu) SI units: N s m-2
 
+#Debug test
+# println(k)
 
 end
 
