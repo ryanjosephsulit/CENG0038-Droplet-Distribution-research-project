@@ -2,12 +2,22 @@ module TubeBend
 
 using Constants
 
-# struct CarrierFluidProfile
-#     T :: Float64        # Carrier fluid temperature (T) SI units: K
-#     Ro :: Float64       # Carrier fluid density (ro) SI units: kg m-3
-#     Q :: Float64        # Carrier fluid flow rate (Q) SI units: m3 s-1
-#     mu :: Float64       # Carrier fluid dynamic viscosity (mu) SI units: N s m-2
-
+ struct Properties
+#CarrierFluidProfile
+     T     :: Float64        # Carrier fluid temperature (T) SI units: K
+     Q     :: Float64        # Carrier fluid flow rate (Q) SI units: m3 s-1
+     mu    :: Float64        # Carrier fluid dynamic viscosity (mu) SI units: N s m-2
+#Fluid
+     ro_d  :: Float64        # Droplet density (ro_d) SI units: kg m-3
+     mu_d  :: Float64        # Droplet dynamic viscosity (mu_d) SI units: N s m-2
+     dd    :: Float64        # Droplet diameter (dd) SI units: m
+#Tube
+     Rb    :: Float64        # Radius of the bend (Rb) SI units: m
+     theta :: Float64        # Bend angle (theta) SI units: radians
+     d     :: Float64        # Tube inner diameter (d) SI units: m
+function  ()
+    
+end
 end
 
 #struct TemperatureProfile
