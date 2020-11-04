@@ -26,3 +26,7 @@ Manifest.toml
 
 # File generated using the PkgTemplates package
 templatePkg.jl
+
+# Fraga/Pedro's Code
+BatchReactorWithUncertainty.jl
+simulation.jl
