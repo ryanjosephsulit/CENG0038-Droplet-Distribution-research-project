@@ -17,13 +17,9 @@ struct Parameters
 end
 
 # ## Input
+# print("Parameter details")
 # print("Enter T, Ro, Q, mu: ")
 # params = split(readline(), ",")
-
-# print(typeof(params))
-
-# testArray = [1,2,3,4]
-# print(params)
 
 # T = params[1]
 # Ro = params[2]
@@ -34,11 +30,6 @@ end
 # print(Ro)
 # print(Q)
 # print(mu)
-
-
-
-
-
 
 mutable struct Properties
  # Droplet
@@ -55,8 +46,21 @@ mutable struct Properties
     L :: Float64                            # Distance from the tube inlet (L) SI units: m
 end
 
+# ## Input
+# print("Droplet Properties")
+# print("Enter ro_d, mu_d, d_d: ")
+# propsDroplet = split(readline(), ",")
+# print("Tube Properties")
+# print("Enter d, phi, L: ")
 
-function velocities(k, T, md)
+# T = params[1]
+# Ro = params[2]
+# Q = params[3]
+# mu = params[4]
+
+
+
+function br_v(k, T, md)
     Vb = sqrt((k*T)/(2*pi*md));          # Brownian diffusion velocity (Vb) SI units: m s-1
 end
 
