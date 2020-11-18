@@ -62,32 +62,95 @@ d_d = propsDroplet[3]
 print("Tube Properties \n")
 print("Enter d, phi, L: ")
 propsTube = split(readline(), ",")
-function velocityTu(Q,  d)
-        U=4*Q/(pi*d^2)
+
+function meanFlow(Q,  d)
+        U=4*Q/(pi*d^2)                       # Fluid flow mean velocity (U) SI units: m s-1
 end
     
 function reynold(U,  d, ro, mu)
-        Re=(U*d*ro)/mu
+        Re=(U*d*ro)/mu                       # Reynolds number (Re)
 end
     
 function fff(Re)
-        f=0.316/(4*Re^0.25)
+        f=0.316/(4*Re^0.25)                  # Fanning friction factor, Blasius equation for turbulent pipe flow (f) dimensionless
 end
-    
+
+# The Blasius equation is not applicable for the following range of Reynolds number:
 function blasius(Re)
     if (Re .< 3000 || Re .> 100000)
         extrapolation=extrapolation+1
 end
     
 function frictionV(U, f)
-        Vf = U*sqrt(f/2)
+        Vf = U*sqrt(f/2)                      # Friction velocity (Vf) SI units: m s-1
 end
     
 function CunninghamSlipCorrection(mu, T, d_d)
          lambda = (mu/p)*sqrt((pi*k*T)/(2*MM))                   # Model for the mean free path of the carrier fluid (lambda)
          C = 1 + (lambda/dd)*(2.34+1.05*exp(-.39*d_d/lambda))    #Cunningham slip correction (C)
 end
-    
+
+function relaxationTime(C, ro_d, d_d,  mu)
+        tau = (C*ro_d*d_d^2)/(18*mu)          # Droplet relaxation time (tau)
+end
+        
+function Rplus(d_d, Vf, ro, mu)
+        Rplus = (d_d*Vf*ro)/(2*mu)            # Parameter Rplus (Rplus) 
+end
+        
+function paramS(tau, Vf, d_d)
+        ParamS = 0.9*tau*Vf + d_d/2            # Parameter S (ParamS)
+end
+        
+function Splus(ParamS, Vf, ro, mu)
+        Splus = (ParamS*Vf*ro)/(mu)            # Parameter Splus (Splus)
+end
+     
+# Dimensionless depositional velocity (Vs)
+if (Splus >= 0 && Splus <= 10)
+    Vs = 0.05*Splus                            
+else 
+    Vs = 0.5 + 0.0125*(Splus - 10)
+    extrapolation=extrapolation+1
+end
+
+# Dimensionless depositional velocity (Vr)
+if (Rplus >= 0 && Rplus <= 10)
+    Vr = 0.05*Rplus
+else 
+    Vr = 0.5 + 0.0125*(Splus - 10)
+    extrapolation=extrapolation+1
+end
+        
+function diffVelTur(Vf, Vs, Vr)
+        Vt = (Vf*(Vs+Vr))/(4)                  # Turbulent diffusional velocity (Vt)
+end
+        
+function gSettlingVel(tau, g, phi)
+        Vg = tau*g*cos(phi)                    # Gravitational settling velocity (Vg)
+end
+        
+function depositionV(Vt, Vb, K)
+        Vd = Vt + Vb*K                         # Sum of Vt and Vb is defined as Vd (Vd)
+end
+        
+function critAngle(Vd, Vg)
+        TETAc = asin(Vd/Vg)                    # Critical angle (TETAc)
+end
+        
+function effectiveDepositionV(Vd, TETAc, Vg)
+        Ve=Vd*TETAc/pi + Vd/2 + Vg*cos(TETAc)/pi        # Ve is the effective depositional velocity, given by the vector sum of velocities due to turbulent diffusion (Vt),
+end
+
+# If Vd>Vg, there is no need to use TETAc, since the integral that originated the Ve equation can be evaluated from 0 to 2pi. Also, arcsine(x) for x>1 is not defined in the real domain, therefore, TETAc would be imaginary.
+if (Vd>Vg)
+    Ve=Vd
+end
+        
+function penetration(d, Ve, L, Q)
+        P = -exp(-(pi*d*Ve*L)/(Q))             # P = penetration = C/C0 = ratio between concentration at distance x and initial concentration
+end
+        
     d = parse(Float64, propsTube[1])
 phi = parse(Float64, propsTube[2])
 L = parse(Float64, propsTube[3])
