@@ -1,3 +1,6 @@
+dir = "./src"
+push!(LOAD_PATH,dir)
+
 module physicalConstants
 
 export k, g, p, MM

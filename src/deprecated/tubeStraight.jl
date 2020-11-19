@@ -6,7 +6,7 @@ push!(LOAD_PATH,dir)
 
 module tubeStraight
 
-import physicalConstants: k, g
+import physicalConstants: k, g, p, MM
 
 struct Parameters
  # CarrierFluidProfile
@@ -187,5 +187,5 @@ end
 
 end
 
-
+end
 
