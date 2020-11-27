@@ -1,8 +1,13 @@
 # Model: Anand, McFarland, Kihm, Wong (Optimization of Aerosol Penetration through Transport Lines, 1992)
 # Based on: straightTubePenetrationAnand1992.m
 
-dir = "./src"
-push!(LOAD_PATH,dir)
+if "./src" in LOAD_PATH
+    # print("in src")
+else
+    dir = "./src"
+    push!(LOAD_PATH,dir)        
+    # print("not in src")
+end
 
 module trachea
 
