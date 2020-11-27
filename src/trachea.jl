@@ -92,17 +92,18 @@ struct straightTube
         
         Vt = (Vf*(Vs+Vr))/(4)                  # Turbulent diffusional velocity (Vt)
         Vg = tau*g*cos(phi)                    # Gravitational settling velocity (Vg)
+        # Vg = 0
         Vd = Vt + Vb*K                         # Sum of Vt and Vb is defined as Vd (Vd)
         # InvCrit
-        InvCrit = Vd/Vg
-        TETAc = asin(InvCrit)                    # Critical angle (TETAc)
-        Ve=Vd*TETAc/pi + Vd/2 + Vg*cos(TETAc)/pi        # Ve is the effective depositional velocity, given by the vector sum of velocities due to turbulent diffusion (Vt),
+        # InvCrit = Vd/Vg
+        # TETAc = asin(Vd/Vg)                    # Critical angle (TETAc)
+        # Ve=Vd*TETAc/pi + Vd/2 + Vg*cos(TETAc)/pi        # Ve is the effective depositional velocity, given by the vector sum of velocities due to turbulent diffusion (Vt),
 
-        # if (Vd>Vg)                             # %If Vd>Vg, there is no need to use TETAc, since the integral that originated the Ve equation can be evaluated from 0 to 2pi. Also, arcsine(x) for x>1 is not defined in the real domain, therefore, TETAc would be imaginary.
-        #     Ve=Vd
-        # end
+        if (Vd>Vg)                           # %If Vd>Vg, there is no need to use TETAc, since the integral that originated the Ve equation can be evaluated from 0 to 2pi. Also, arcsine(x) for x>1 is not defined in the real domain, therefore, TETAc would be imaginary.
+            Ve=Vd
+        end
 
-        # P = -exp(-(pi*d*Ve*L)/(Q))             # P = penetration = C/C0 = ratio between concentration at distance x and initial concentration
+        P = exp(-(pi*d*Ve*L)/(Q))             # P = penetration = C/C0 = ratio between concentration at distance x and initial concentration
 
         # results = [md, Vb, U, Re, f, extrapl, Vf, lambda, tau, Rplus, ParamS, Splus, Vs, Vr, Vt, Vg, Vd, TETAc, Ve, P]
         # labels = ["md", "Vb", "U", "Re", "f", "extrapl", "Vf", "lambda", "tau", "Rplus", "ParamS", "Splus", "Vs", "Vr", "Vt", "Vg", "Vd", "TETAc", "Ve", "P"]
@@ -110,11 +111,11 @@ struct straightTube
         # for i in 1:20
         #     print(labels[i], ": ", results[i], '\n')
         # end
+        
+        results = [md, Vb, U, Re, f, extrapl, Vf, lambda, tau, Rplus, ParamS, Splus, Vs, Vr, Vt, Vg, Vd, Ve, P]
+        labels = ["md", "Vb", "U", "Re", "f", "extrapl", "Vf", "lambda", "tau", "Rplus", "ParamS", "Splus", "Vs", "Vr", "Vt", "Vg", "Vd", "Ve", "P"]
 
-        results = [md, Vb, U, Re, f, extrapl, Vf, lambda, tau, Rplus, ParamS, Splus, Vs, Vr, Vt, Vg, Vd, InvCrit]
-        labels = ["md", "Vb", "U", "Re", "f", "extrapl", "Vf", "lambda", "tau", "Rplus", "ParamS", "Splus", "Vs", "Vr", "Vt", "Vg", "Vd", "InvCrit"]
-
-        for i in 1:18
+        for i in 1:19
             print(labels[i], ": ", results[i], '\n')
         end
     
@@ -123,14 +124,14 @@ struct straightTube
 end
 
 # straightTube(T, ro, Q, mu, ro_d, d_d, d, phi, L)
-T = 309.5 #Temperature of Air
+T = 309.5 # Temperature of Air
 ro = 1.12027 # Density of Air (http://www.anaesthesia.med.usyd.edu.au/resources/lectures/humidity_clt/humidity.html#:~:text=While%20nose%20breathing%20at%20rest,%25%20to%2070%25%20relative%20humidity.)
 Q = 0.001 # Based on 60L/min flowrate of ventilators
 mu = 1.895e-5 # Dynamic viscosity of air (https://www.engineersedge.com/physics/viscosity_of_air_dynamic_and_kinematic_14483.htm#:~:text=The%20viscosity%20of%20air%20depends,10%2D5%20Pa%C2%B7s%20.&text=At%2025%20%C2%B0C%2C%20the,the%20kinematic%20viscosity%2015.7%20cSt.)
 ro_d = 1000 # Droplet density of water
 d_d = 6e-6 # droplet diameter of inhalation
 d = 0.0189 # Diameter of trachea (https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.slideshare.net%2Fjinojustinj%2Ftracheal-pathologies&psig=AOvVaw38sp20tGz3PGVizR_R8F_N&ust=1605869019853000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCICtjbi2ju0CFQAAAAAdAAAAABAT)
-phi = 0 #Vertical pipe length
+phi = (pi/2) # Vertical pipe length
 L = 0.118 # Avg length of trachea (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5900092/#:~:text=On%20average%2C%20the%20length%20of,to%20be%20shorter%20in%20females.&text=Structure%20of%20the%20trachea.)
 
 straightTube(T, ro, Q, mu, ro_d, d_d, d, phi, L)
