@@ -22,8 +22,9 @@ var0 = 0.209550477#e-6
 
 distrib0 = Distributions.LogNormal(mean0,var0)
 # range0 = 0.5e-6:0.1e-6:4e-6
-range0 = 0.5:0.1:4
-discrete0 = diff(cdf(distrib0, range0))
+# range0 = 0.5:0.1:4
+range0=0.8:0.2:1.2
+discrete0 = pdf(distrib0, range0)
 # discrete0 = cdf(distrib0, range0)
 
 println(discrete0[1])

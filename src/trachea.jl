@@ -117,12 +117,12 @@ struct straightTube
         #     print(labels[i], ": ", results[i], '\n')
         # end
         
-        # results = [md, Vb, U, Re, f, extrapl, Vf, lambda, tau, Rplus, ParamS, Splus, Vs, Vr, Vt, Vg, Vd, Ve, P]
-        # labels = ["md", "Vb", "U", "Re", "f", "extrapl", "Vf", "lambda", "tau", "Rplus", "ParamS", "Splus", "Vs", "Vr", "Vt", "Vg", "Vd", "Ve", "P"]
+        results = [md, Vb, U, Re, f, extrapl, Vf, lambda, tau, Rplus, ParamS, Splus, Vs, Vr, Vt, Vg, Vd, Ve, P]
+        labels = ["md", "Vb", "U", "Re", "f", "extrapl", "Vf", "lambda", "tau", "Rplus", "ParamS", "Splus", "Vs", "Vr", "Vt", "Vg", "Vd", "Ve", "P"]
 
-        # for i in 1:19
-        #     print(labels[i], ": ", results[i], '\n')
-        # end
+        for i in 1:19
+            print(labels[i], ": ", results[i], '\n')
+        end
     
     end
 
