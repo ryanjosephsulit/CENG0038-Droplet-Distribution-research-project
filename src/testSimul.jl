@@ -17,11 +17,13 @@ d = 0.0189 # Diameter of trachea (https://www.google.com/url?sa=i&url=https%3A%2
 phi = (pi/2) # Vertical pipe length
 L = 0.118 # Avg length of trachea (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5900092/#:~:text=On%20average%2C%20the%20length%20of,to%20be%20shorter%20in%20females.&text=Structure%20of%20the%20trachea.)
 
-range = 0.5e-6:0.1e-6:5e-6
+## Dataset 1
+# Source: "The Mechanism of Breath Formation"
+dataset1 = [5.4444E-07, 5.8472E-07, 6.2656E-07, 6.6727E-07, 7.2656E-07, 7.6727E-07, 8.3492E-07, 9.0000E-07, 9.6627E-07, 1.0557E-06, 1.1621E-06, 1.2616E-06, 1.3686E-06, 1.4746E-06, 1.5741E-06, 1.6736E-06, 1.7828E-06, 1.8863E-06, 1.9858E-06, 2.1567E-06, 2.3432E-06, 2.5136E-06, 2.6939E-06, 2.8643E-06, 3.0672E-06, 3.3113E-06, 3.5555E-06, 3.8230E-06]
 
 results = []
 
-for d_d = 0.5e-6:0.01e-6:5e-6
+for d_d = dataset1
     penetration = trachea.straightTube(T, ro, Q, mu, ro_d, d_d, d, phi, L)
     push!(results, penetration)
 end
