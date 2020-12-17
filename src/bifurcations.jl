@@ -32,8 +32,9 @@ struct bifurcation
 
         phi = 2*(d_0/d_1)^2*sin(alpha)
 
-        P = (16/3*pi)*phi*Stk*(2-(sqrt( (4/3)*phi*Stk )))
+        Deposition = (16/3*pi)*phi*Stk*(2-(sqrt( (4/3)*phi*Stk )))
 
+        P = 1-Deposition
         # print(U)
         # print("\n")
 
