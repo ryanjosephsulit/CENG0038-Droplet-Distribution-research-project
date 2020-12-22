@@ -136,7 +136,7 @@ mu = 1.895e-5 # Dynamic viscosity of air (https://www.engineersedge.com/physics/
 ro_d = 1000 # Droplet density of water
 d_d = 6e-6 # droplet diameter of inhalation
 d = 0.0189 # Diameter of trachea (https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.slideshare.net%2Fjinojustinj%2Ftracheal-pathologies&psig=AOvVaw38sp20tGz3PGVizR_R8F_N&ust=1605869019853000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCICtjbi2ju0CFQAAAAAdAAAAABAT)
-phi = (pi/2) # Vertical pipe length
+phi = (pi/2) # Inclination angle in radians (phi) SI units: rad
 L = 0.118 # Avg length of trachea (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5900092/#:~:text=On%20average%2C%20the%20length%20of,to%20be%20shorter%20in%20females.&text=Structure%20of%20the%20trachea.)
 
 straightTube(T, ro, Q, mu, ro_d, d_d, d, phi, L)
