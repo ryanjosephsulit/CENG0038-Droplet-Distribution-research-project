@@ -9,11 +9,11 @@ else
     # print("not in src")
 end
 
-module trachea
+module bronchiole
 
 import physicalConstants: k, g, p, MM
 
-struct straightTube
+struct inclinedTube
     # CarrierFluidProfile
     T :: Float64          # Carrier fluid temperature (T) SI units: K
     ro :: Float64         # Carrier fluid density (ro) SI units: kg m-3
@@ -59,7 +59,7 @@ struct straightTube
     # Penetration
     P :: Float64            # P = penetration = C/C0 = ratio between concentration at distance x and initial concentration 
 
-    function straightTube(T, ro, Q, mu, ro_d, d_d, d, phi, L)
+    function inclinedTube(T, ro, Q, mu, ro_d, d_d, d, phi, L)
         extrapl = 0
         K = 5e-5;
         
@@ -97,15 +97,16 @@ struct straightTube
         
         Vt = (Vf*(Vs+Vr))/(4)                  # Turbulent diffusional velocity (Vt)
         Vg = tau*g*cos(phi)                    # Gravitational settling velocity (Vg)
-        # Vg = 0
         Vd = Vt + Vb*K                         # Sum of Vt and Vb is defined as Vd (Vd)
-        # InvCrit
-        # InvCrit = Vd/Vg
-        # TETAc = asin(Vd/Vg)                    # Critical angle (TETAc)
+        InvCrit = Vd/Vg
+        print(InvCrit)
+        TETAc = asin(Vd/Vg)                    # Critical angle (TETAc)
         # Ve=Vd*TETAc/pi + Vd/2 + Vg*cos(TETAc)/pi        # Ve is the effective depositional velocity, given by the vector sum of velocities due to turbulent diffusion (Vt),
 
         if (Vd>Vg)                           # %If Vd>Vg, there is no need to use TETAc, since the integral that originated the Ve equation can be evaluated from 0 to 2pi. Also, arcsine(x) for x>1 is not defined in the real domain, therefore, TETAc would be imaginary.
             Ve=Vd
+            print("Vd > Vg")
+            print("\n")
         end
 
         P = exp(-(pi*d*Ve*L)/(Q))             # P = penetration = C/C0 = ratio between concentration at distance x and initial concentration
@@ -136,12 +137,12 @@ mu = 1.895e-5 # Dynamic viscosity of air (https://www.engineersedge.com/physics/
 ro_d = 1000 # Droplet density of water
 d_d = 6e-6 # droplet diameter of inhalation
 d = 0.0189 # Diameter of trachea (https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.slideshare.net%2Fjinojustinj%2Ftracheal-pathologies&psig=AOvVaw38sp20tGz3PGVizR_R8F_N&ust=1605869019853000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCICtjbi2ju0CFQAAAAAdAAAAABAT)
-phi = (pi/2) # Inclination angle in radians (phi) SI units: rad
-# IBA = 1.040216 # Interbronchial angle, average for all ages, 59.6 degrees SI Units: radians
-# phi = pi-(pi/2)-(IBA/2) # Inclination angle in radians (phi) SI units: rad
+# phi = (pi/2) # Inclination angle in radians (phi) SI units: rad
+IBA = 1.040216 # Interbronchial angle, average for all ages, 59.6 degrees SI Units: radians
+phi = pi-(pi/2)-(IBA/2) # Inclination angle in radians (phi) SI units: rad
 L = 0.118 # Avg length of trachea (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5900092/#:~:text=On%20average%2C%20the%20length%20of,to%20be%20shorter%20in%20females.&text=Structure%20of%20the%20trachea.)
 
-print(straightTube(T, ro, Q, mu, ro_d, d_d, d, phi, L))
+print(inclinedTube(T, ro, Q, mu, ro_d, d_d, d, phi, L))
 
 # Dummy values
 # straightTube(309.5, 1, 2, 3, 4, 5, 6, 7, 8)
