@@ -91,7 +91,7 @@ struct straightTube
         if (Rplus >= 0 && Rplus <= 10)
             Vr = 0.05*Rplus
         else 
-            Vr = 0.5 + 0.0125*(Splus - 10)
+            Vr = 0.5 + 0.0125*(Rplus - 10)
             extrapl=extrapl+1
         end
         
