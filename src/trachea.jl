@@ -97,15 +97,16 @@ struct straightTube
         
         Vt = (Vf*(Vs+Vr))/(4)                  # Turbulent diffusional velocity (Vt)
         Vg = tau*g*cos(phi)                    # Gravitational settling velocity (Vg)
-        # Vg = 0
         Vd = Vt + Vb*K                         # Sum of Vt and Vb is defined as Vd (Vd)
-        # InvCrit
-        # InvCrit = Vd/Vg
-        # TETAc = asin(Vd/Vg)                    # Critical angle (TETAc)
-        # Ve=Vd*TETAc/pi + Vd/2 + Vg*cos(TETAc)/pi        # Ve is the effective depositional velocity, given by the vector sum of velocities due to turbulent diffusion (Vt),
 
-        if (Vd>Vg)                           # %If Vd>Vg, there is no need to use TETAc, since the integral that originated the Ve equation can be evaluated from 0 to 2pi. Also, arcsine(x) for x>1 is not defined in the real domain, therefore, TETAc would be imaginary.
+        if (Vd>Vg)                             # If Vd>Vg, there is no need to use TETAc, since the integral that originated the Ve equation can be evaluated from 0 to 2pi. Also, arcsine(x) for x>1 is not defined in the real domain, therefore, TETAc would be imaginary.
             Ve=Vd
+            # print("\n Vd>Vg")
+        else 
+            InvCrit = Vd/Vg
+            TETAc = asin(Vd/Vg)                    # Critical angle (TETAc)
+            Ve=Vd*TETAc/pi + Vd/2 + Vg*cos(TETAc)/pi        # Ve is the effective depositional velocity, given by the vector sum of velocities due to turbulent diffusion (Vt),
+            # print("\n Vd<Vg")
         end
 
         P = exp(-(pi*d*Ve*L)/(Q))             # P = penetration = C/C0 = ratio between concentration at distance x and initial concentration
@@ -114,6 +115,8 @@ struct straightTube
         # print(Vt/Vd)
         
         # print(Re)
+
+        # print(Ve)
 
         # print("\n")
         # print(Vb*K)
