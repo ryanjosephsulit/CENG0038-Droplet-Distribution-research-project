@@ -35,8 +35,8 @@ print(post_trachea)
 
 # bifurcation(ro_d, d_d, d_0, d_1, mu, Q, alpha)
 ro_d = 1000 # Droplet density of water
-d_0 = 0.0189 # Diameter of trachea (https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.slideshare.net%2Fjinojustinj%2Ftracheal-pathologies&psig=AOvVaw38sp20tGz3PGVizR_R8F_N&ust=1605869019853000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCICtjbi2ju0CFQAAAAAdAAAAABAT)
-d_1 = 0.0189 # Diameter of daughter (https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.slideshare.net%2Fjinojustinj%2Ftracheal-pathologies&psig=AOvVaw38sp20tGz3PGVizR_R8F_N&ust=1605869019853000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCICtjbi2ju0CFQAAAAAdAAAAABAT)
+d_0 = 0.018 # Diameter of trachea (https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.slideshare.net%2Fjinojustinj%2Ftracheal-pathologies&psig=AOvVaw38sp20tGz3PGVizR_R8F_N&ust=1605869019853000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCICtjbi2ju0CFQAAAAAdAAAAABAT)
+d_1 = 0.0122 # Diameter of daughter (https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.slideshare.net%2Fjinojustinj%2Ftracheal-pathologies&psig=AOvVaw38sp20tGz3PGVizR_R8F_N&ust=1605869019853000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCICtjbi2ju0CFQAAAAAdAAAAABAT)
 mu = 1.895e-5 # Dynamic viscosity of air (https://www.engineersedge.com/physics/viscosity_of_air_dynamic_and_kinematic_14483.htm#:~:text=The%20viscosity%20of%20air%20depends,10%2D5%20Pa%C2%B7s%20.&text=At%2025%20%C2%B0C%2C%20the,the%20kinematic%20viscosity%2015.7%20cSt.)
 Q = 0.001 # Based on 60L/min flowrate of ventilators
 alpha = 1.06116 # SCA, all ages. Haskin Goodman et. al. "Normal Tracheal Bifurcation Angle"
@@ -79,18 +79,18 @@ end
 # print(size(post_bifurc0))
 
 # Deposition Efficiency after first bifurcation
-# n_i = post_trachea .* post_bifurc0
+n_i = post_trachea .* post_bifurc0
 
 # print(n_i)
 
 # Distribution for dataset1
-# d_i1 = [0.056718217, 0.060143555, 0.068012484, 0.071244953, 0.073582454, 0.076460071, 0.078809187, 0.077779268, 0.072560295, 0.065129111, 0.056718217, 0.045163553, 0.037531843, 0.031410246, 0.026885611, 0.02266377, 0.018430315, 0.01499732, 0.01121713, 0.00960475, 0.007514077, 0.005690533, 0.003839032, 0.002862148, 0.002179373, 0.001434928, 0.000799432, 0.000618126]
+d_i1 = [0.056718217, 0.060143555, 0.068012484, 0.071244953, 0.073582454, 0.076460071, 0.078809187, 0.077779268, 0.072560295, 0.065129111, 0.056718217, 0.045163553, 0.037531843, 0.031410246, 0.026885611, 0.02266377, 0.018430315, 0.01499732, 0.01121713, 0.00960475, 0.007514077, 0.005690533, 0.003839032, 0.002862148, 0.002179373, 0.001434928, 0.000799432, 0.000618126]
 # print(size(d_i1))
 
 # Penetration * Distribution for data set 1 (one bifurcation)
-# final_distribution = n_i .* d_i1
+final_distribution = n_i .* d_i1
 
-# print(final_distribution)
+print(final_distribution)
 
 # L = 0.1
 # print(L)
